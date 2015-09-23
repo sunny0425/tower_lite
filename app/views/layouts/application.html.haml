@@ -7,4 +7,10 @@
     = javascript_include_tag 'application'
     = csrf_meta_tags
   %body
+    - if flash
+      - flash.each do |name, msg|
+        - if %w(error notice alert).include?(name)
+          %div
+            %b= "#{name.capitalize}: "
+            = msg
     = yield

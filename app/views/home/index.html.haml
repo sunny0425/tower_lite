@@ -1,2 +1,10 @@
 %h1 Home#index
 %p Find me in app/views/home/index.html.haml
+- if current_user
+  %p= "Hello, #{current_user.email}"
+  %p= link_to 'Logout', '#'
+- else
+  %p
+    = link_to 'Login', '#'
+  %p
+    = link_to 'Register', new_user_path
