@@ -2,6 +2,10 @@ Rails.application.routes.draw do
 
   resources :users, only: [:new, :create]
 
+  resource :user_sessions, only: [:new, :create, :destroy]
+  get 'login' => 'user_sessions#new', :as => :login
+  delete 'logout' => 'user_sessions#destroy', :as => :logout
+
   get 'home/index'
 
   root 'home#index'

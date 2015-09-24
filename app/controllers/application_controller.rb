@@ -23,16 +23,19 @@ class ApplicationController < ActionController::Base
   end
 
   def logged_in?
-    current_user
+    !current_user.nil?
   end
 
   def login!(user)
-    p ' **' * 20
-    p user.inspect
     if user
       session[:user_id] = user.id
       @current_user = user
     end
+  end
+
+  def logout!
+    session.delete(:user_id)
+    @current_user = nil
   end
 
   def require_login
