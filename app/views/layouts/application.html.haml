@@ -13,4 +13,24 @@
           %div
             %b= "#{name.capitalize}: "
             = msg
+
+    %nav.navbar.navbar-default
+      .container
+        %ul.nav.nav-pills.navbar-left
+          %li.active
+            = link_to '项目', '#'
+          %li
+            = link_to '动态', '#'
+          %li
+            = link_to '团队', '#'
+        %ul.nav.nav-pills.navbar-right
+          - if current_user
+            %li= "Hello, #{current_user.email}"
+            %li= link_to 'Logout', logout_path, method: :delete
+          - else
+            %li= link_to 'Login', login_path
+            %li= link_to 'Register', new_user_path
+
     = yield
+
+
