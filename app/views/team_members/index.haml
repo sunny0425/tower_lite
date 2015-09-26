@@ -1,0 +1,26 @@
+.page-header
+  = link_to new_team_team_member_path(@team), class: 'btn btn-primary' do
+    %span.glyphicon.glyphicon-plus
+    New Team members
+  %h1 Listing team members
+
+.table-responsive
+  %table.table.table-striped.table-bordered.table-hover
+    %thead
+      %tr
+        %th Memeber Name
+        %th Memeber Email
+        %th Member User Id
+        %th Role
+        %th
+        %th
+
+    %tbody
+      - @members.each do |member|
+        %tr
+          %td= member.user.name
+          %td= member.user.email
+          %td= member.user_id
+          %td= member.role
+          %td= link_to 'Edit', edit_team_team_member_path(@team, member)
+          %td= link_to 'Destroy', team_team_member_path(@team, member), data: { confirm: 'Are you sure?' }, method: :delete

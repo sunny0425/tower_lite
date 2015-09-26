@@ -13,6 +13,7 @@
         %th
         %th
         %th
+        %th
 
     %tbody
       - @teams.each do |team|
@@ -21,4 +22,5 @@
           %td= team.created_user_id
           %td= link_to 'Show', team
           %td= link_to 'Edit', edit_team_path(team)
+          %td= link_to 'Members', team_team_members_path(team)
           %td= link_to 'Destroy', team, data: { confirm: 'Are you sure?' }, method: :delete

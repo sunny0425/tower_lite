@@ -1,0 +1,31 @@
+= form_for [@team, @member], html: { class: "form-horizontal", role: "form" } do |f|
+  -if @member.errors.any?
+    .alert.alert-danger.alert-dismissable{role: "alert"}
+      %button.close{type: "button", data: {dismiss: "alert"} }
+        %span{aria: {hidden: "true"} } &times;
+        %span.sr-only Close
+      %h4= "#{pluralize(@member.errors.count, "error")} prohibited this team from being saved:"
+
+      %ul
+        - @member.errors.full_messages.each do |msg|
+          %li= msg
+
+  .form-group
+    = f.label :email, class: 'col-sm-2 control-label'
+    .col-sm-10
+      - if @member.new_record?
+        = f.text_field :email, class: 'form-control'
+      - else
+        = @member.email
+
+  .form-group
+    = f.label :role, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.select :role, TeamMember::roles.keys.map{|role| [role.titleize, role]}, {}, class: 'form-control'
+
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      - if @member.new_record?
+        = f.submit 'Add Memeber', class: 'btn btn-primary'
+      - else
+        = f.submit 'Update Memeber', class: 'btn btn-primary'

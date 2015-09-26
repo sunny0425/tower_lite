@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
 
-  resources :teams
+  resources :teams do
+    resources :team_members
+  end
+
   resources :users, only: [:new, :create]
 
   resource :user_sessions, only: [:new, :create, :destroy]
