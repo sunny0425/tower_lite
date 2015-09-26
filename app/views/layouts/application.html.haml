@@ -31,7 +31,7 @@
               %a{href: "#"} 项目
             %li
               %a{href: "#about"} 动态
-            %li{ class: (:active if params[:controller] == 'teams') }
+            %li{ class: (:active if %w(teams team_members).include?(params[:controller])) }
               %a{href: teams_path} 团队
           %ul.nav.navbar-nav.navbar-right
             - if current_user
