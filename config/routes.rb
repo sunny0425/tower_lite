@@ -7,7 +7,9 @@ Rails.application.routes.draw do
     resources :projects, only: [:index]
   end
 
-  resources :users, only: [:new, :create]
+  resources :todos
+
+  resources :users, only: [:new, :create, :show]
 
   resource :user_sessions, only: [:new, :create, :destroy]
   get 'login' => 'user_sessions#new', :as => :login
