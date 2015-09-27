@@ -3,6 +3,7 @@ class Todo < ActiveRecord::Base
   belongs_to :updated_user, class_name: 'User', foreign_key: 'updated_user_id',
     inverse_of: 'updated_todos'
   belongs_to :assignee, class_name: 'User', foreign_key: 'assignee_id', inverse_of: 'assigned_todos'
+  belongs_to :project
 
   has_many :comments
   has_many :events, as: :eventable
@@ -10,10 +11,16 @@ class Todo < ActiveRecord::Base
   after_create :add_newly_event
   after_update :add_update_event
 
+  def team
+    @team ||= project.team
+  end
+
   def add_newly_event
     self.events.create(
       activist_id: self.creator_id,
-      content: '创建了任务'
+      content: '创建了任务',
+      project_id: project.id,
+      team_id: team.id
     )
   end
 
@@ -38,7 +45,9 @@ class Todo < ActiveRecord::Base
     if _content.present?
       self.events.create(
         activist_id: self.updated_user_id,
-        content: _content
+        content: _content,
+        project_id: project.id,
+        team_id: team.id
       )
     end
   end
