@@ -4,6 +4,7 @@ class Todo < ActiveRecord::Base
     inverse_of: 'updated_todos'
   belongs_to :assignee, class_name: 'User', foreign_key: 'assignee_id', inverse_of: 'assigned_todos'
 
+  has_many :comments
   has_many :events, as: :eventable
 
   after_create :add_newly_event
@@ -18,13 +19,15 @@ class Todo < ActiveRecord::Base
 
   def add_update_event
     _content = nil
-    
+
     if self.end_date_changed?
       _content = "任务完成时间修改为：#{self.end_date}"
     elsif self.assignee_id.changed? && self.assignee.present?
       _content = "给 #{self.assignee.name} 指派了任务"
     elsif self.is_done.changed? && self.is_done
-      _content = "完成了任务"
+      _content = '完成了任务'
+    elsif self.is_deleted_changed? && self.is_deleted
+      _content = '删除了任务'
     end
 
     if _content.present?
