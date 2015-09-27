@@ -23,7 +23,12 @@ class Todo < ActiveRecord::Base
     if self.end_date_changed?
       _content = "任务完成时间修改为：#{self.end_date}"
     elsif self.assignee_id.changed? && self.assignee.present?
-      _content = "给 #{self.assignee.name} 指派了任务"
+      if self.assignee_id_was.blank? 
+        _content = "给 #{self.assignee.name} 指派了任务"
+      else
+        user = User.find(self.assignee_id_was)
+        _content = "把 #{user.name} 的任务指派给 #{self.assignee.name}"
+      end
     elsif self.is_done.changed? && self.is_done
       _content = '完成了任务'
     elsif self.is_deleted_changed? && self.is_deleted
