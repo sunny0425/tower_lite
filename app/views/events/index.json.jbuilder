@@ -5,7 +5,9 @@ json.array!(@events) do |event|
   
   - if event.eventable_type == 'Comment'
     json.url todos_url(event.eventable.todo)
+    json.refer_content = event.eventable.content
   else
     json.url todos_url(event.eventable_id)
+    json.refer_content = event.eventable.title
   end
 end
