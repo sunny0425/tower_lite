@@ -43,4 +43,14 @@ class ApplicationController < ActionController::Base
     bounce! 'Sorry, you must login first' unless current_user
   end
 
+  helper_method :current_team
+  def current_team
+    return @current_team if @current_team.present?
+    if session[:team_id]
+      @current_team = Team.find(session[:team_id])
+    else
+      @current_team = current_user.teams.first
+    end 
+  end
+
 end

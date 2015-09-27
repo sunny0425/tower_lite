@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
 
+  resources :projects
+
   resources :teams do
     resources :team_members
+    resources :projects, only: [:index]
   end
 
   resources :users, only: [:new, :create]

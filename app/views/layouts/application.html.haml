@@ -28,7 +28,10 @@
         #navbar.collapse.navbar-collapse
           %ul.nav.navbar-nav.navbar-left
             %li
-              %a{href: "#"} 项目
+              - if current_team
+                %a{href: team_projects_path} 项目
+              - else
+                %a{href: "#"} 项目
             %li
               %a{href: "#about"} 动态
             %li{ class: (:active if %w(teams team_members).include?(params[:controller])) }

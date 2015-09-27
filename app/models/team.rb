@@ -1,6 +1,7 @@
 class Team < ActiveRecord::Base
   belongs_to :creator, class_name: 'User', foreign_key: 'created_user_id'
   has_many :members, class_name: 'TeamMember'
+  has_many :projects
 
   after_create :add_memmber_admin
 
