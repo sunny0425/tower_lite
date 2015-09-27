@@ -1,5 +1,5 @@
 class TeamMembersController < ApplicationController
-  prepend_before_action :require_login
+  before_action :require_login
   before_action :set_team
   before_action :set_team_member, only: [:edit, :udpate, :destroy]
   before_action :require_member

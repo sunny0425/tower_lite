@@ -1,13 +1,17 @@
 Rails.application.routes.draw do
 
-  resources :projects
+  
 
   resources :teams do
     resources :team_members
     resources :projects, only: [:index]
   end
 
-  resources :todos
+  resources :projects do
+    resources :todos, only: [:index]
+  end
+
+  resources :todos, except: [:index]
 
   resources :users, only: [:new, :create, :show]
 
